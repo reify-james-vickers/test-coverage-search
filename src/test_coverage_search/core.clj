@@ -50,10 +50,14 @@
                              nil)))
                  (list-files path))))
 
-(comment
-  (def coverage-dir "/Users/jamesvickers/Downloads/target/coverage/")
+(defn report-uncovered-event-code!
+  [dir name]
   (pretty-spit
-   "/Users/jamesvickers/Downloads/missing_event_coverage.txt"
+   (format "/Users/jamesvickers/Downloads/missing_event_coverage_%s.txt" name)
    (update-keys
-    (uncovered-event-code-by-filename coverage-dir)
-    #(.replace % coverage-dir ""))))
+    (uncovered-event-code-by-filename dir)
+    #(.replace % dir ""))))
+
+(comment
+  (report-uncovered-event-code! "/Users/jamesvickers/Downloads/site_coverage/" "site")
+  (report-uncovered-event-code! "/Users/jamesvickers/Downloads/sponsor_coverage/" "sponsor"))
